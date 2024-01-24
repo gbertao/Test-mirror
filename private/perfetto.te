@@ -46,6 +46,24 @@ allow perfetto perfetto_configs_data_file:file r_file_perms;
 allow perfetto { statsd mm_events shell su }:fd use;
 allow perfetto { statsd mm_events shell su system_server }:fifo_file { getattr read write ioctl };
 
+# Allow perfetto to read the trace config from systemui
+userdebug_or_eng(`
+  allow perfetto { platform_app }:fd use;
+  allow perfetto { platform_app }:fifo_file { getattr read write ioctl };
+')
+
+# Allow sharing traces to betterbug from /data/misc/wmtrace.
+userdebug_or_eng(`
+  allow perfetto trace_data_file:file create_file_perms;
+  allow perfetto trace_data_file:dir w_dir_perms;
+')
+
+# Allow writing and removing wmshell protolog in /data/misc/wmtrace.
+userdebug_or_eng(`
+  allow perfetto wm_trace_data_file:file create_file_perms;
+  allow perfetto wm_trace_data_file:dir w_dir_perms;
+')
+
 # Allow to communicate use, read and write over the adb connection.
 allow perfetto adbd:fd use;
 allow perfetto adbd:unix_stream_socket { read write };
@@ -125,6 +143,8 @@ neverallow perfetto {
   # TODO(b/72998741) Remove exemption. Further restricted in a subsequent
   # neverallow. Currently only getattr and search are allowed.
   -vendor_data_file
+  -trace_data_file
+  -wm_trace_data_file
   -perfetto_traces_data_file
   -perfetto_traces_bugreport_data_file
   -perfetto_traces_profiling_data_file
@@ -133,6 +153,8 @@ neverallow perfetto {
 }:dir *;
 neverallow perfetto {
   system_data_file
+  -trace_data_file
+  -wm_trace_data_file
   -perfetto_traces_data_file
   -perfetto_traces_profiling_data_file
 }:dir ~{ getattr search };
@@ -141,6 +163,8 @@ neverallow perfetto {
   -perfetto_traces_data_file
   -perfetto_traces_bugreport_data_file
   -perfetto_traces_profiling_data_file
+  -trace_data_file
+  -wm_trace_data_file
   -perfetto_configs_data_file
   with_native_coverage(`-method_trace_data_file')
 }:file ~write;
