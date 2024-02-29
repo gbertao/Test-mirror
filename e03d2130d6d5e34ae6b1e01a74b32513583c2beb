@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e3ea51a_f0d3ac22",
+        "filename": "private/perfetto.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1054468
+      },
+      "writtenOn": "2024-02-29T06:23:45Z",
+      "side": 1,
+      "message": "Does perfetto need this?\n\nWhat denials is this addressing?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 2
+      },
+      "revId": "e03d2130d6d5e34ae6b1e01a74b32513583c2beb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "278159d0_53183d6c",
+        "filename": "private/platform_app.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1054468
+      },
+      "writtenOn": "2024-02-29T06:23:45Z",
+      "side": 1,
+      "message": "Do you need permission to create/write these files, or is read sufficient?\n\nr_file_perms\nr_dir_perms\n\n?",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 54
+      },
+      "revId": "e03d2130d6d5e34ae6b1e01a74b32513583c2beb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
